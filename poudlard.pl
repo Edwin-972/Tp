@@ -24,20 +24,21 @@ innocent(Suspect) :-
     suspect(Suspect),
     \+ guilty(Suspect).
 
-% Règle principale pour trouver le coupable parmi les suspects
+% Règle principale pour trouver le coupable
 coupable_unique(Coupable) :-
     suspect(Coupable),
     guilty(Coupable),
     findall(S, guilty(S), Coupables),
     length(Coupables, 1).
 
-% Règle pour analyser une liste de suspects et déterminer le coupable unique
+% Règle pour analyser une liste de suspects et déterminer le coupable 
+
 coupable_par_liste([Suspect|_], Coupable) :-
     coupable_unique(Suspect),
     Coupable = Suspect.
 coupable_par_liste([_|Reste], Coupable) :-
     coupable_par_liste(Reste, Coupable).
 
-% Question pour tester le programme
+% Question pour tester 
+% ?- coupable_par_liste([neville, drago, ginny], Coupable).
 % ?- coupable_unique(Coupable).
-% % ?- coupable_par_liste([drago, neville, ginny], Coupable).
